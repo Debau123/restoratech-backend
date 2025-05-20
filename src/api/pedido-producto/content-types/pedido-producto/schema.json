@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pedido_productos",
+  "info": {
+    "singularName": "pedido-producto",
+    "pluralName": "pedido-productos",
+    "displayName": "Pedido_producto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pedido": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pedido.pedido",
+      "inversedBy": "pedido_productos"
+    },
+    "producto": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::producto.producto",
+      "inversedBy": "pedido_productos"
+    },
+    "cantidad": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

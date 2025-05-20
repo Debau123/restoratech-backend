@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservas",
+  "info": {
+    "singularName": "reserva",
+    "pluralName": "reservas",
+    "displayName": "Reserva"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cliente": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "reservas"
+    },
+    "fecha": {
+      "type": "date",
+      "required": true
+    },
+    "hora": {
+      "type": "time",
+      "required": true
+    },
+    "comensales": {
+      "type": "integer",
+      "required": true
+    },
+    "pedidos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pedido.pedido",
+      "mappedBy": "reserva"
+    }
+  }
+}

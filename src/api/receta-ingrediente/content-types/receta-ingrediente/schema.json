@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "receta_ingredientes",
+  "info": {
+    "singularName": "receta-ingrediente",
+    "pluralName": "receta-ingredientes",
+    "displayName": "receta_ingrediente"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "receta": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::receta.receta",
+      "inversedBy": "receta_ingredientes"
+    },
+    "ingrediente": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::ingrediente.ingrediente",
+      "inversedBy": "receta_ingredientes"
+    },
+    "cantidad_necesaria": {
+      "type": "decimal"
+    }
+  }
+}

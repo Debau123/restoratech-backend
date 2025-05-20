@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recetas",
+  "info": {
+    "singularName": "receta",
+    "pluralName": "recetas",
+    "displayName": "Receta"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "producto": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::producto.producto",
+      "inversedBy": "receta"
+    },
+    "descripcion": {
+      "type": "richtext"
+    },
+    "receta_ingredientes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::receta-ingrediente.receta-ingrediente",
+      "mappedBy": "receta"
+    }
+  }
+}
