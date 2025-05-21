@@ -1,7 +1,5 @@
 'use strict';
 
-const { sanitize } = require('@strapi/utils');
-
 module.exports = {
   async register(ctx) {
     const { username, email, password, roleId } = ctx.request.body;
@@ -10,7 +8,7 @@ module.exports = {
       return ctx.badRequest('Faltan datos obligatorios');
     }
 
-    // Comprueba si ya existe el usuario por email o username
+    // Busca si ya existe
     const existingUser = await strapi.db.query('plugin::users-permissions.user').findOne({
       where: { $or: [{ email }, { username }] },
     });
@@ -20,7 +18,6 @@ module.exports = {
     }
 
     try {
-      // Crea el usuario con confirmed true y rol
       const user = await strapi.db.query('plugin::users-permissions.user').create({
         data: {
           username,
@@ -32,9 +29,7 @@ module.exports = {
         },
       });
 
-      const sanitizedUser = await sanitize.sanitizers.defaultSanitizeOutput(user);
-
-      return ctx.send({ user: sanitizedUser, message: 'Usuario creado y confirmado' });
+      return ctx.send({ message: 'Usuario creado y confirmado', user });
     } catch (err) {
       ctx.throw(500, err);
     }
