@@ -2,13 +2,21 @@
 
 module.exports = {
   async register(ctx) {
-    const { username, email, password, role } = ctx.request.body;
+    const { username, email, password, rol } = ctx.request.body; // rol es string de enumeración
 
-    if (!username || !email || !password || !role) {
+    if (!username || !email || !password || !rol) {
       return ctx.badRequest('Faltan datos obligatorios');
     }
 
-    // Aquí role es directamente string y se guarda tal cual
+    // Buscar usuario existente
+    const existingUser = await strapi.db.query('plugin::users-permissions.user').findOne({
+      where: { $or: [{ email }, { username }] },
+    });
+
+    if (existingUser) {
+      return ctx.badRequest('Usuario o email ya existe');
+    }
+
     try {
       const user = await strapi.db.query('plugin::users-permissions.user').create({
         data: {
@@ -17,7 +25,7 @@ module.exports = {
           password,
           confirmed: true,
           blocked: false,
-          role,  // <-- ahora es string
+          rol,  // Guardamos directamente la cadena de la enumeración
         },
       });
 
