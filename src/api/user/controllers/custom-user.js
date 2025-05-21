@@ -17,6 +17,15 @@ module.exports = {
       return ctx.badRequest('Usuario o email ya existe');
     }
 
+    // Buscar el Role "Authenticated" para asignar su id
+    const authenticatedRole = await strapi.query('plugin::users-permissions.role').findOne({
+      where: { name: 'Authenticated' },
+    });
+
+    if (!authenticatedRole) {
+      return ctx.badRequest('Role "Authenticated" no encontrado');
+    }
+
     try {
       const user = await strapi.db.query('plugin::users-permissions.user').create({
         data: {
@@ -25,9 +34,9 @@ module.exports = {
           password,
           confirmed: true,
           blocked: false,
-          rol,  // Guardamos directamente la cadena de la enumeración
-           role: 'authenticated',  // asigna el rol "Authenticated"
-          provider: 'local',    
+          rol,  // tu enumeración personalizada
+          role: authenticatedRole.id,  // asigna el rol "Authenticated"
+          provider: 'local',           // importante para login con contraseña
         },
       });
 
