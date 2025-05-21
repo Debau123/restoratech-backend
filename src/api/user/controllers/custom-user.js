@@ -29,14 +29,17 @@ module.exports = {
       return ctx.badRequest('Role "Authenticated" no encontrado');
     }
 
-    const hashedPassword = await strapi.plugins['users-permissions'].services.user.hashPassword({ password });
+    // ✅ Versión correcta para Strapi v4
+    const hashedPassword = await strapi
+      .service('plugin::users-permissions.user')
+      .hashPassword({ password });
 
     try {
       const user = await strapi.db.query('plugin::users-permissions.user').create({
         data: {
           username,
           email,
-          password: hashedPassword, // 👈 AQUI el cambio importante
+          password: hashedPassword,
           confirmed: true,
           blocked: false,
           rol,
@@ -47,7 +50,8 @@ module.exports = {
 
       return ctx.send({ message: 'Usuario creado y confirmado', user });
     } catch (err) {
-      ctx.throw(500, err);
+      console.error('Error al crear usuario:', err);
+      return ctx.internalServerError('Error al crear usuario');
     }
   },
 };
