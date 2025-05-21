@@ -30,9 +30,11 @@ module.exports = {
     }
 
     try {
+      // ✅ Esta versión funciona en Railway y cualquier v4
       const hashedPassword = await strapi
-        .service('plugin::users-permissions.user')
-        .hashPassword({ password });
+        .plugin('users-permissions')
+        .service('user')
+        .hashPassword(password);
 
       const user = await strapi.db.query('plugin::users-permissions.user').create({
         data: {
