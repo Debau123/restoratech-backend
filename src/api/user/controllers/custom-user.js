@@ -1,5 +1,7 @@
 'use strict';
 
+const bcrypt = require('bcryptjs'); // 👈 importa bcrypt
+
 module.exports = {
   async register(ctx) {
     const { username, email, password, rol } = ctx.request.body;
@@ -30,11 +32,7 @@ module.exports = {
     }
 
     try {
-      // ✅ Esta versión funciona en Railway y cualquier v4
-      const hashedPassword = await strapi
-        .plugin('users-permissions')
-        .service('user')
-        .hashPassword(password);
+      const hashedPassword = await bcrypt.hash(password, 10); // ✅ compatible 100%
 
       const user = await strapi.db.query('plugin::users-permissions.user').create({
         data: {
