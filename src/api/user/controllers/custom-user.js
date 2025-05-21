@@ -26,6 +26,8 @@ module.exports = {
           confirmed: true,
           blocked: false,
           rol,  // Guardamos directamente la cadena de la enumeración
+           role: 'authenticated',  // asigna el rol "Authenticated"
+          provider: 'local',    
         },
       });
 
