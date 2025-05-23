@@ -50,6 +50,12 @@
     },
     "rotacion": {
       "type": "decimal"
+    },
+    "reserva": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::reserva.reserva",
+      "inversedBy": "mesa"
     }
   }
 }
