@@ -20,9 +20,10 @@
     "tipo": {
       "type": "enumeration",
       "enum": [
-        "cuadrada ",
-        "redonda"
-      ]
+        "redonda",
+        "cuadrada"
+      ],
+      "default": "cuadrada"
     },
     "capacidad": {
       "type": "integer"
@@ -30,7 +31,7 @@
     "reservada": {
       "type": "boolean"
     },
-    "posiscion_x": {
+    "posicion_x": {
       "type": "decimal"
     },
     "posicion_y": {
