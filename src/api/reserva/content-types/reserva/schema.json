@@ -4,7 +4,8 @@
   "info": {
     "singularName": "reserva",
     "pluralName": "reservas",
-    "displayName": "Reserva"
+    "displayName": "Reserva",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -38,8 +39,7 @@
     "mesa": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::mesa.mesa",
-      "mappedBy": "reserva"
+      "target": "api::mesa.mesa"
     }
   }
 }

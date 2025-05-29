@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pedido",
     "pluralName": "pedidos",
-    "displayName": "Pedido"
+    "displayName": "Pedido",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -26,6 +27,7 @@
       "enum": [
         "pendiente",
         "en_proceso",
+        "preparado",
         "completo",
         "cancelado"
       ]
