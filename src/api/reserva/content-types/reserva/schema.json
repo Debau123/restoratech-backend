@@ -39,7 +39,8 @@
     "mesa": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::mesa.mesa"
+      "target": "api::mesa.mesa",
+      "inversedBy": "reserva"
     }
   }
 }
