@@ -1,4 +1,4 @@
-'use strict';
++'use strict';
 
 module.exports = {
   async registerCustom(ctx) {
@@ -9,23 +9,24 @@ module.exports = {
     }
 
     try {
-      // Buscar el ID del rol por nombre
+      // Buscar rol real (users-permissions) por name
       const role = await strapi.db.query('plugin::users-permissions.role').findOne({
-        where: { type: rol },
+        where: { name: rol },  // O { type: rol } si es el caso
       });
 
       if (!role) {
         return ctx.badRequest('Rol no válido');
       }
 
-      // Crear el usuario con confirmado:true y rol asignado
+      // Crear usuario con rol real y campo rol
       const user = await strapi.db.query('plugin::users-permissions.user').create({
         data: {
           username,
           email,
           password,
           confirmed: true,
-          role: role.id,
+          role: role.id,  // Asignar relación con users-permissions.role
+          rol,            // Guardar también el campo enumeration
         },
       });
 
